@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Şehir Class Finder</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <img class="thumbnail img-responsive" src="{{ 'static/images/logo.png' }}" style="height: 5%; width: 5%; />
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/instructor">Instructors</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/lectures">Lectures</a>
+      </li>
+    </ul>
+      <h5 class="text-muted" style="margin-top:8px">Logged in as: {{ g.user[1] }}</h5>
+      <a class="nav-link" href="/logout">Logout</a>
+  </div>
+</nav>
+{% block content %}
+ <div class="container" style="text-align: center";>
+  <!-- For demo purpose -->
+  <div class="row py-5">
+    <div class="col-lg-9 mx-auto text-white text-center">
+      <h1 class="display-4">Şehir Class Finder</h1>
+    </div>
+  </div>
+  <!-- End -->
+
+
+  <div class="row mb-5">
+    <div class="col-lg-8 mx-auto">
+      <h5 class="font-weight-light mb-4 font-italic text-white">Input time interval and day to find free classes:</h5>
+      <div class="bg-white p-5 rounded shadow">
+
+        <!-- Custom rounded search bars with input group -->
+        <section class="search-sec">
+    <div class="container">
+        <form method="post">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <select name="start" class="form-control search-slt" id="exampleFormControlSelect1">
+                                <option>Start Time</option>
+                                {% for time in g.start_times %}
+                                    <option>{{ time }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                         <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <select name="end" class="form-control search-slt" id="exampleFormControlSelect1">
+                                <option>End Time</option>
+                                {% for time in g.end_times %}
+                                    <option disabled>{{ time }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                          <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <select name="day" class="form-control search-slt" id="exampleFormControlSelect1">
+                                <option>Day</option>
+                                {% for day in g.days %}
+                                    <option>{{ day[0] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <button type="submit" class="btn btn-primary wrn-btn">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% if g.invalid %}
+    <script>alert("Invalid input please try again!")</script>
+{% endif %}
+        <!-- End -->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if g.showrooms %}
+ <div class="row mb-5">
+    <div class="col-lg-8 mx-auto">
+      <h5 class="font-weight-light mb-4 font-italic text-white">Room results</h5>
+      <div class="bg-white p-5 rounded shadow">
+
+        <!-- Underlined search bars -->
+
+<div class="well">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Room Name</th>
+          <th>Capacity</th>
+          <th>Free until</th>
+          <th style="width: 36px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for i in g.result %}
+        <tr>
+          <td>{{ i[2] }}#{{ i[0] }}</td>
+          <td>{{ i[1] }}</td>
+          <td>{{ i[3] }}</td>
+          <td>
+              <a href="user.html"><i class="icon-pencil"></i></a>
+              <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endif %}
+        <!-- End -->
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script>
+    $('select[name=start]').on('change', function(){
+        var self = this;
+        $('select[name=end]').find('option').prop('disabled', function(){
+        return this.value && this.value < self.value+1 && self.value+1
+    });
+});
+
+
+    </script>
+</body>
+</html>
