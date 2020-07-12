@@ -163,13 +163,17 @@ def login():
         userpass = request.form["pass"]
 
         login = False
-        user = [x for x in all_users if x[1].lower() == username.lower()][0]
-        if user and user[2] == userpass:
-           login = True
-           g.user = user
-           session['user_id'] = user[0]
-           session['username'] = user[1]
-           session['logged_in'] = True
+        try:
+            user = [x for x in all_users if x[1].lower() == username.lower()][0]
+            if user and user[2] == userpass:
+               login = True
+               g.user = user
+               session['user_id'] = user[0]
+               session['username'] = user[1]
+               session['logged_in'] = True
+        except IndexError:
+            flash('Username or password is incorrect.')
+            return redirect("/login")
 
         if login == True:
             return redirect("/")
