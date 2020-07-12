@@ -1,5 +1,5 @@
 # ClassFinder
-An informational web app built to find empty classes in my University during specific periods of time.<br/>
+An informational web app built to find empty classrooms in my University during specific periods of time.<br/>
 
 Also provides information about lectures and instructors. <br/>
 
