@@ -10,6 +10,7 @@ For an online demo click this link: http://halmoos.pythonanywhere.com/  <br/>
    Importing the database: <br/>
    1- Copy the code from 'DBDump.sql'. <br/>
    2- Paste the code into a MySQL terminal or a script and execute the script. <br/>
+   3- User: "test" Password: "test" is available for testing
    
    In your text editor: <br/>
    1- Make the required changes to connect to your own MySQL database
